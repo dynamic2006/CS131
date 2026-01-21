@@ -1,2 +1,12 @@
 REPORT
 
+The two most interesting questions on this assignment were the Russell's Paradox question and the filter_blind_alleys function.
+Here's a rough sketch of my thought process for these problems:
+
+1) Russell's Paradox
+This was an interesting question because even outside of OCaml, an implementation of self_member in any programming language would probably just return false for any set s.
+This is because the input set s must also live in the parameters of the coding langauge, so it must be defined as some finite, tangible data structure. The only sets that are sets of themselves are much more abstract in nature, and (although I'm not completely sure of this) are likely not translatable into code. So fundamentally, any input into the function should just return false. While this is a "working" function, it's a vacuous situation where the function doesn't really convery any meaningful information about s. Then the second approach to this question is consider there does exist some programming language in which we could write the self_member function. Even then, it's not possible to translate the function into OCaml, because OCaml does static type checking. This idea is detailed further in my comment, but overall in either approach to this question the answer is that a meaningful self_member function cannot be written in OCaml.
+
+2) filter_blind_alleys
+Three main ideas for this problem: 1. Lots of Helper functions 2. Deciding which nonterminals are productive is much easier than determining if they are not productive (like a floodfill idea) 3. The order in which non-productive rules are deleted doesn't matter (got this from awk test case 3). So from these two ideas I understood that the big goal here is to build a set of productive nonterminals, and since the number of nonterminals is finite, there is a fixed point for this set.
+On a high-level, I went about implementing the building of the fixed point with the preexisting fixed point function, using the equal_sets as the equality operator, and the modifying function was to basically scan over the entire list of rules to see if more productive nonterminals could be found on the new scan. The x variable was the list of productive nonterminals.
